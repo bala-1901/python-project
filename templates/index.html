@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Handling with Flask</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+
+
+        /* Make sure the body and html take full height */
+        body, html {
+            height: 100%;   /* Full height of the screen */
+            margin: 0;      /* Remove default margin */
+            display: grid;  /* Enable CSS Grid */
+            place-items: center; /* Center both horizontally and vertically */
+            background-color: #f0f0f0; /* Optional background color */
+        }
+
+        /* Content container */
+        .content {
+            width: 90%;       /* Set a width (or any fixed size) */
+            max-width: 1700px; /* Optional: Limit max width */
+            padding: 20px;    /* Add some padding */
+            background-color: #ffffff; /* Background color */
+            border: 1px solid #ccc;   /* Optional border */
+            text-align: center; /* Center text inside the content */
+        }
+     
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .myDiv {
+            border: 2px outset rgb(255, 81, 0);
+            background-color: rgb(252, 252, 252);
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: small;
+            font-weight: bold; 
+            padding: 4px;
+        }
+
+        .mybutton {
+            display: block;
+            width: 100% !important;
+            background-color: rgb(179, 89, 5);
+            color: rgb(255, 255, 255);
+            padding: 4px;
+            font-size: large;
+            text-align: center;
+        }
+
+            .mytextbox {
+            display: block;
+            width: 100% !important;
+            background-color: rgb(250, 250, 250);
+            color: rgb(15, 15, 15);
+            padding: 2px;
+            font-size: large;
+            text-align: center;
+        }
+
+            .mytable {
+            display: block;
+            width: 100% !important;
+            background-color: rgb(250, 250, 250);
+            color: rgb(15, 15, 15);
+        } 
+
+        /* Style the parent div */
+        .table-container {
+            width: 80%;     /* Set the width of the div (can be adjusted as needed) */
+            height: 500px;  /* Set the height of the div (can be adjusted) */
+            border: 2px solid #000; /* Border around the div */
+            margin: 0 auto; /* Center the div horizontally */
+            overflow: hidden; /* Hide content overflow */
+        }
+
+        table {
+            width: 100%;      /* Make the table fill the width of the div */
+            height: 100%;     /* Make the table fill the height of the div */
+            border-collapse: collapse; /* Remove space between borders */
+        }
+
+        th, td {
+            border: 1px solid black; /* Add borders to the table cells */
+             /* Center text in cells */
+            padding: 10px;      /* Add padding for better readability */
+            height: 100%;       /* Make rows stretch to fill available height */
+            text-align: center;
+        }
+
+        th {
+            /* background-color: #4CAF50; Green background for header cells */
+            color: white; /* White text for the header */
+            text-align: center;
+            font-size: large;
+        }
+
+        /* Optional: Add alternate row colors for readability */
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h3 style="text-align:center">Technology, Media & Telecommunication</h3>
+    <form action="{{ url_for('submit') }}" method="POST">
+
+
+    <br>
+    <div class="content">
+        <div class="myDiv"><br>
+            1. Input Company Information:
+            <br>
+            <section>
+                <p>
+                <label for="Company Identifiere">Company Identifier: </label>
+                <input type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                <label for="Currency-e">Currency-:</label>
+                <select name="Currency" id="Currency" >
+                    <option selected disabled>--Currency--</option>
+                    <option>USD</option>
+                    <option>EUR</option>
+                    <option>ALL</option>
+                </select>
+                </Br></Br>
+                </p>
+            </section>
+            <tr>
+                <td class="col">Start Date</td>
+                <td class="col2"><input type="date" name="Start_Date" id="Start_Date" class="startDate"></td>
+            </tr>
+            <label for="Date Range">Select the Date Range-:</label>
+            <select name="Date_Range" id="Date_Range">
+                <option selected disabled>--Date Range--</option>
+                <option>3 Months</option>
+                <option>6 Months</option>
+                <option>1 Year</option>
+                <option>2 Years</option>
+                <option>3 Years</option>
+            </select>
+            </br></br>
+            </p>
+            </section>
+            </p>
+        </div>
+        <br>
+        <div class="myDiv"><br>2. Select Sections for Pitch Creation
+            <div style="align-content: center;">
+                <section >
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <td style="font-size:large !important;background-color: rgb(179, 89, 5); color: white;"> 
+                                        <p>
+                                            <span >Company Overview</span>
+                                        </p>
+                                    </td>
+                                    <td style="font-size:large !important;background-color: rgb(179, 89, 5); color: white;">
+                                        <p>
+                                            <span >Financial Output</span>
+                                        </p>
+                                    </td>
+                                    <td style="font-size:large !important;background-color: rgb(179, 89, 5); color: white;"> 
+                                        <p>
+                                            <span >Broker Estimates</span>
+                                        </p>
+                                    </td>
+                                    <td style="font-size:large !important;background-color: rgb(179, 89, 5); color: white;">
+                                        <p>
+                                            <span >Share Price Performance and Valuation</span>
+                                        </p>
+                                    </td>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                <td>
+    
+                                </td>
+                                <td style="text-align:left !important;vertical-align: top !important;">
+                                
+                                    
+                                    <p>
+                                        <label><input type="checkbox" checked name="OnePage_Profile_PitchBook" id="OnePage_Profile_PitchBook">One-Pager Profile (PitchBook)</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" name="OnePage_Profile_FactSet" id="OnePage_Profile_FactSet">One-Pager Profile (FactSet)</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Top 20 Investors Overview</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >**Relationship Snapshot</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Private Company Investor Summary</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Strip Profile</label>
+                                    </p>
+                                </td>
+                                <td style="text-align:left !important;vertical-align: top !important;">
+                                
+                                    <p>
+                                        <label><input type="checkbox" checked>Revenue by Segment</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Time-series Revenue by Segment</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Time-series Financial Summary</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Public Market Overview (Abridged version</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Public Market Overview (Comprehensive version</label>
+                                    </p>
+                                </td>
+                                <td style="text-align:left !important;vertical-align: top !important;">
+                                
+                                    <p>
+                                        <label><input type="checkbox" checked>Broker Targets & Ratings</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Analyst Price Ratings</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Broker Recommendation</label>
+                                    </p>
+                                </td>
+                                <td style="text-align:left !important;vertical-align: top !important;">
+                                
+                                    <p>
+                                        <label><input type="checkbox" checked>Broker Targets & Ratings</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Analyst Price Ratings</label>
+                                    </p>
+                                    <p>
+                                        <label><input type="checkbox" >Broker Recommendation</label>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" id="toggleCheckbox" checked> Show/Hide Details
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </section>
+            </div>
+        
+        </div>
+
+        <div id="contentDiv" >
+            <div class="myDiv">
+                <div>
+                    <br> 
+                    <p>
+                            3a. Peer Index Creation Required? 
+                        <select name="Date_Range" id="Date_Range">
+                            <option selected disabled>--</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </p>
+                    <br><br>
+                </div>
+            </div>
+
+            <div class="myDiv">
+                <div> 
+                    <table>
+                        <tr>
+                            <td>    
+                            
+                            </td>
+                            <td>    
+                                3b. Enter Peer Identifier 
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer 1*</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+
+            <div class="myDiv">
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                3c. Enter Peer Set Name
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer Set 1</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer Set 2</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer Set 3</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer Set 4</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <span class="mybutton">Peer Set 5</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <span class="mybutton">Peer Set 6</span>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Enter Company Identifier
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 1*
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 2
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 3
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 4
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 5
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            Peer 6
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td> 
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <input class="mytextbox" type="text" id-"Company_Identifier" name="Company_Identifier" required />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="myDiv">
+            <br>
+            4. Create Output
+            <section>
+
+                <p>
+
+                    <button type="submit">Run</button>
+                </p>
+            </section>
+        </div>
+
+    </div>
+
+    </form>
+</div>
+
+    <script>
+        // jQuery to toggle visibility based on checkbox state
+        $('#toggleCheckbox').change(function() {
+            $('#contentDiv').toggle(this.checked);  // Show/hide based on checkbox state
+        });
+    </script>
+</body>
+</html>
